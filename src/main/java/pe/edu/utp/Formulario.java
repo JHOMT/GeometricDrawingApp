@@ -5,59 +5,49 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Formulario extends JFrame {
-    private PanelFigura panelFigura;
+    private PanelFigura<Figura> panelFigura;
 
     public Formulario() {
         super("Dibuja figuras");
 
         JButton botonCuadrado = new JButton("Cuadrado");
-        botonCuadrado.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String input = JOptionPane.showInputDialog("Ingresa el lado del cuadrado:");
-                try {
-                    double lado = Double.parseDouble(input);
-                    Figura figura = new Cuadrado(lado);
-                    panelFigura.setFigura(figura);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
-                }
+        botonCuadrado.addActionListener(e -> {
+            String input = JOptionPane.showInputDialog("Ingresa el lado del cuadrado:");
+            try {
+                double lado = Double.parseDouble(input);
+                Figura figura = new Cuadrado(lado);
+                panelFigura.setFigura(figura);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
             }
         });
 
         JButton botonTriangulo = new JButton("Triangulo");
-        botonTriangulo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String input = JOptionPane.showInputDialog("Ingresa el lado del triángulo:");
-                try {
-                    double lado = Double.parseDouble(input);
-                    Figura figura = new Triangulo(lado);
-                    panelFigura.setFigura(figura);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
-                }
+        botonTriangulo.addActionListener(e -> {
+            String input = JOptionPane.showInputDialog("Ingresa el lado del triángulo:");
+            try {
+                double lado = Double.parseDouble(input);
+                Figura figura = new Triangulo(lado);
+                panelFigura.setFigura(figura);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
             }
         });
 
         JButton botonCirculo = new JButton("Circulo");
-        botonCirculo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-                String input = JOptionPane.showInputDialog("Ingresa el diámetro del círculo:");
-                try {
-                    double diametro = Double.parseDouble(input);
-                    Figura figura = new Circulo(diametro);
-                    panelFigura.setFigura(figura);
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
-                }
+        botonCirculo.addActionListener(e -> {
+            String input = JOptionPane.showInputDialog("Ingresa el diámetro del círculo:");
+            try {
+                double diametro = Double.parseDouble(input);
+                Figura figura = new Circulo(diametro);
+                panelFigura.setFigura(figura);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
             }
         });
 
         JButton botonBorrar = new JButton("Borrar");
-        botonBorrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                panelFigura.setFigura(null);
-            }
-        });
+        botonBorrar.addActionListener(e -> panelFigura.setFigura(null));
 
         JPanel panelBotones = new JPanel();
         panelBotones.add(botonCuadrado);

@@ -1,11 +1,9 @@
 package pe.edu.utp;
-
 import javax.swing.*;
 import java.awt.*;
-
-class PanelFigura extends JPanel {
+class PanelFigura<T extends  Figura> extends JPanel {
     private Figura figura;
-    public void setFigura(Figura figura) {
+    public void setFigura(T figura) {
         this.figura = figura;
         repaint();
     }
