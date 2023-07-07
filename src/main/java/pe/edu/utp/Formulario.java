@@ -2,51 +2,33 @@ package pe.edu.utp;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class Formulario extends JFrame {
-    private PanelFigura<Figura> panelFigura;
+public class Formulario extends JFrame{
+    private PanelFigura panelFigura;
+    private Figura figuraActual;
 
     public Formulario() {
-        super("Dibuja figuras");
+        Color colorPanel= new Color(8,16,46);
+        Color colorbotones= new Color(18,23,46);
 
         JButton botonCuadrado = new JButton("Cuadrado");
-        botonCuadrado.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog("Ingresa el lado del cuadrado:");
-            try {
-                double lado = Double.parseDouble(input);
-                Figura figura = new Cuadrado(lado);
-                panelFigura.setFigura(figura);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
-            }
-        });
+        botonCuadrado.setBackground(colorbotones);
+        botonCuadrado.setForeground(Color.white);
+        botonCuadrado.addActionListener(e -> crearFigura("cuadrado","lado"));
 
         JButton botonTriangulo = new JButton("Triangulo");
-        botonTriangulo.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog("Ingresa el lado del triángulo:");
-            try {
-                double lado = Double.parseDouble(input);
-                Figura figura = new Triangulo(lado);
-                panelFigura.setFigura(figura);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
-            }
-        });
+        botonTriangulo.setBackground(colorbotones);
+        botonTriangulo.setForeground(Color.white);
+        botonTriangulo.addActionListener(e -> crearFigura("triangulo","lado"));
 
         JButton botonCirculo = new JButton("Circulo");
-        botonCirculo.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog("Ingresa el diámetro del círculo:");
-            try {
-                double diametro = Double.parseDouble(input);
-                Figura figura = new Circulo(diametro);
-                panelFigura.setFigura(figura);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Debes ingresar un valor numérico válido.");
-            }
-        });
+        botonCirculo.setBackground(colorbotones);
+        botonCirculo.setForeground(Color.white);
+        botonCirculo.addActionListener(e -> crearFigura("circulo","diametro"));
 
         JButton botonBorrar = new JButton("Borrar");
+        botonBorrar.setBackground(colorbotones);
+        botonBorrar.setForeground(Color.white);
         botonBorrar.addActionListener(e -> panelFigura.setFigura(null));
 
         JPanel panelBotones = new JPanel();
@@ -55,16 +37,42 @@ public class Formulario extends JFrame {
         panelBotones.add(botonCirculo);
         panelBotones.add(botonBorrar);
         panelFigura = new PanelFigura();
-        panelFigura.setBackground(Color.black);
+        panelFigura.setBackground(colorPanel);
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(panelBotones, BorderLayout.NORTH);
         getContentPane().add(panelFigura, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 400);
         setLocationRelativeTo(null);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("FormDrawingApp");
+        setSize(600, 450);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\Jhon\\IdeaProjects\\avanceProyecto\\src\\main\\java\\pe\\edu\\utp\\Logo\\logo-utp.png");
+        Image icono = imageIcon.getImage();
+        setIconImage(icono);
     }
-
+    public void crearFigura(String nombre, String nombreMedida){
+        String input= JOptionPane.showInputDialog(null,"Ingrese el "+nombreMedida+" de la figura "+nombre);
+        try {
+            Integer numero = Integer.parseInt(input);
+            switch (nombre) {
+                case "cuadrado":
+                    figuraActual = new Cuadrado(numero);
+                    break;
+                case "circulo":
+                    figuraActual = new Circulo(numero);
+                    break;
+                case "triangulo":
+                    figuraActual = new Triangulo(numero);
+                    break;
+                default:
+            }
+            panelFigura.setFigura(figuraActual);
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null,"Ingrese un valor numerico valido");
+        }
+    }
     public static void main(String[] args) {
         Formulario formulario = new Formulario();
         formulario.setLocationRelativeTo(null);

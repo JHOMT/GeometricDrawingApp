@@ -15,4 +15,5 @@ class PanelFigura<T extends  Figura> extends JPanel {
             figura.dibujar(g);
         }
     }
+
 }

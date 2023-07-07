@@ -14,6 +14,25 @@ public class Login extends JFrame implements ActionListener {
     private JButton btn1, btn2;
     private JPanel panel;
     private JLabel statusLabel;
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        String correo = tf1.getText();
+        String contrasena = new String(p1.getPassword());
+        if (ae.getSource() == btn1) {
+            if (checkCredentials(correo, contrasena)) {
+                new Formulario();
+            } else {
+                statusLabel.setText("Correo o contraseña incorrectos");
+            }
+        } else {
+            if (registerUser(correo, contrasena)) {
+                statusLabel.setText("Registro exitoso");
+            } else {
+                statusLabel.setText("Error al registrar usuario");
+            }
+        }
+    }
+
     Login() {
         l1 = new JLabel("Correo:");
         l2 = new JLabel("Contraseña:");
@@ -40,25 +59,6 @@ public class Login extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        String correo = tf1.getText();
-        String contrasena = new String(p1.getPassword());
-        if (ae.getSource() == btn1) {
-            if (checkCredentials(correo, contrasena)) {
-                openFormularioInterface();
-            } else {
-                statusLabel.setText("Correo o contraseña incorrectos");
-            }
-        } else {
-            if (registerUser(correo, contrasena)) {
-                statusLabel.setText("Registro exitoso");
-            } else {
-                statusLabel.setText("Error al registrar usuario");
-            }
-        }
-    }
-
     private boolean checkCredentials(String email, String password) {
         try (BufferedReader br = new BufferedReader(new FileReader(DB_FILE))) {
             String line;
@@ -72,9 +72,6 @@ public class Login extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         return false;
-    }
-    private void openFormularioInterface() {
-        Formulario formularioFrame = new Formulario();
     }
 
     private boolean registerUser(String email, String password) {
